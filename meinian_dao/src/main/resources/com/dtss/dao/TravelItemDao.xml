@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dtss.dao.TravelItemDao">
+    <!--新增-->
+    <insert id="add" parameterType="travelItem">
+        insert into t_travelitem(code,name,sex,age,price,type,remark,attention)
+        values
+        (#{code},#{name},#{sex},#{age},#{price},#{type},#{remark},#{attention})
+    </insert>
+
+    <select id="findPage" resultType="travelItem" parameterType="String">
+        select * from t_travelitem
+    <where>
+        <if test="value!=null and value.length!=0">
+            name like "%"#{value }"%" or code = #{value }
+        </if>
+    </where>
+    </select>
+
+    <delete id="delete" >
+        delete from t_travelitem where id=#{id}
+    </delete>
+
+
+    <select id="countId" resultType="Integer">
+        select count(*) from t_travelgroup_travelitem where travelitem_id=#{id}
+    </select>
+
+    <select id="findItemById" resultType="TravelItem">
+        select * from t_travelitem where id=#{id}
+    </select>
+
+
+    <select id="findTravelItem" resultType="TravelItem">
+        select * from t_travelitem where id in (
+          select travelitem_id from t_travelgroup_travelitem where travelgroup_id =#{id}
+            )
+    </select>
+
+</mapper>

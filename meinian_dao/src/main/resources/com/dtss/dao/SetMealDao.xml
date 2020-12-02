@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dtss.dao.SetMealDao">
+
+    <select id="findAll" resultType="travelgroup">
+        select * from t_travelgroup
+    </select>
+
+
+    <insert id="add" parameterType="setmeal">
+<selectKey resultType="int" order="AFTER" keyProperty="id">
+    select last_insert_id()
+</selectKey>
+
+        insert into t_setmeal (name, code, helpCode, sex, age, price, remark, attention, img)
+        values(#{name}, #{code}, #{helpCode}, #{sex}, #{age}, #{price}, #{remark}, #{attention}, #{img})
+    </insert>
+
+
+    <insert id="insertTravelgroupIdsBySetmealId">
+        insert into t_setmeal_travelgroup values (#{setMealId},#{travelgroupId})
+    </insert>
+
+    <select id="findPage" resultType="setmeal">
+        select * from t_setmeal
+ <where>
+     <if test="value !=null and value.length>0">
+         name like "%"#{value }"%" or code = #{value }
+     </if>
+ </where>
+    </select>
+</mapper>

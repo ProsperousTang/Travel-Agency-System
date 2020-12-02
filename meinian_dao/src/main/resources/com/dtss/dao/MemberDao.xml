@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dtss.dao.MemberDao">
+
+    <select id="findAllByTele" resultType="member">
+        select * from t_member where phoneNumber = #{telephone}
+    </select>
+
+    <select id="findMemberCount" resultType="Integer">
+        select count(id) from t_member where regTime &lt;=#{regTime}
+    </select>
+
+
+
+    <insert id="add" >
+    <selectKey resultType="Integer" keyProperty="id" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+        insert into t_member (name, sex, idCard, phoneNumber, regTime) values (#{name},#{sex},#{idCard},#{phoneNumber},#{regTime})
+    </insert>
+
+    <select id="getTodayNewMember" resultType="int">
+        select count(id) from t_member where regTime = #{today}
+    </select>
+
+
+    <!--根据日期统计会员数，统计指定日期之前的会员数
+   注意：上午已经实现了这个方法
+   -->
+    <select id="findMemberCountBeforeDate" parameterType="string" resultType="int">
+        select count(id) from t_member where regTime &lt;= #{value}
+    </select>
+
+
+    <!--&lt;!&ndash;今日新增会员数&ndash;&gt;-->
+    <!--<select id="getTodayNewMember" parameterType="string" resultType="int">-->
+        <!--SELECT COUNT(id) FROM t_member WHERE regTime = #{date}-->
+    <!--</select>-->
+
+    <!--总会员数-->
+    <select id="getTotalMember" resultType="int">
+        SELECT COUNT(id) FROM t_member
+    </select>
+
+    <!--本周/本月新增会员数-->
+    <select id="getThisWeekAndMonthNewMember" parameterType="string" resultType="int">
+        SELECT COUNT(id) FROM t_member WHERE regTime &gt;= #{date}
+    </select>
+</mapper>
