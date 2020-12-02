@@ -2,9 +2,12 @@ package com.dtss.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.dtss.entity.PageResult;
+import com.dtss.entity.QueryPageBean;
 import com.dtss.entity.Result;
 import com.dtss.pojo.Address;
 import com.dtss.service.AdressService;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,13 +21,13 @@ import java.util.Map;
 public class AdressController {
 
     @Reference
-    AdressService adressService;
+    AdressService addressService;
 
 
     @RequestMapping("/findAllMaps")
     public Map findAllMaps(){
         Map<String,Object> map = new HashMap<>();
-       List<Address> addresses = adressService.findAllMaps();
+       List<Address> addresses = addressService.findAllMaps();
 
         //1、定义分店坐标集合
         List<Map> gridnMaps=new ArrayList<>();
@@ -49,4 +52,38 @@ public class AdressController {
         map.put("nameMaps",nameMaps);
         return map;
     }
+
+    @RequestMapping("/findPage")
+    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
+        PageResult pageResult=null;
+        try{
+            pageResult= addressService.findPage(queryPageBean);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return pageResult;
+    }
+
+
+
+    @RequestMapping("/addAddress")
+    public Result addAddress(@RequestBody Address address){
+//        System.out.println(address.toString());
+        addressService.addAddress(address);
+        return new Result(true,"地址保存成功");
+    }
+
+    @RequestMapping("/deleteById")
+    public Result deleteById(Integer id){
+        addressService.deleteById(id);
+        return new Result(true,"已删除地址");
+    }
+
+
+
+
+
+
+
+
 }
