@@ -17,8 +17,8 @@ import java.io.InputStream;
  * 七牛云工具类
  */
 public class QiniuUtils {
-    public  static String accessKey = "bijeur_DHvv54d-cod9AJXU2ScEhAJvSch67Bt8f";
-    public  static String secretKey = "3ThripCMj9vZCWoTQBZRiwasTTccE8JMiUzlNxCI";
+    public  static String accessKey = "ERGreur_REG54d-efwGrgergeEhAJvSch67Bt82ERGTf";
+    public  static String secretKey = "3ThripCMj9vZCWoTQBZRiwasTTccEREGegEGRE46NxCI";
     public  static String bucket = "meinian-dtss";
 
     public static void upload2Qiniu(String filePath,String fileName){
