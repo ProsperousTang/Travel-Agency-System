@@ -7,6 +7,6 @@ public class Test_code {
     public void test()  throws Exception{
         Integer code = ValidateCodeUtils.generateValidateCode(4);
         System.out.println("code: "+code);
-        SMSUtils.sendShortMessage("13261509696",String.valueOf(code));
+        SMSUtils.sendShortMessage("132******96",String.valueOf(code));
     }
 }
