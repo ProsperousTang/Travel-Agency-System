@@ -51,7 +51,7 @@ public class TravelItemServiceImpl implements TravelItemService{
     }
 
     @Override
-    public void edit() {
-//        travelItemDao.edit();
+    public void edit(TravelItem travelItem) {
+       travelItemDao.edit(travelItem);
     }
 }

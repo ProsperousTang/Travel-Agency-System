@@ -61,6 +61,12 @@ public class TravelItemController {
 
     }
 
+    @RequestMapping("/edit")
+    public Result edit(@RequestBody TravelItem travelItem){
+        travelItemService.edit(travelItem);
+        return new Result(true,MessageConstant.EDIT_TRAVELITEM_SUCCESS);
+    }
+
 //    @RequestMapping("/edit")
 //    public Result edit(){
 //       travelItemService.edit();

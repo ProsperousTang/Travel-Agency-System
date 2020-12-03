@@ -16,5 +16,5 @@ public interface TravelItemService {
 
     TravelItem findItemById(Integer id);
 
-    void edit();
+    void edit(TravelItem travelItem);
 }

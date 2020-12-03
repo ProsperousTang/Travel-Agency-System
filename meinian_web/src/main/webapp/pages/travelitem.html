@@ -232,13 +232,15 @@
                 handleEdit() {
                     this.$refs['dataEditForm'].validate((valid)=>{
                         if (valid){
-                            axios.post("/travelItem/edit.do?").then((res)=>{
+                            axios.post("/travelItem/edit.do",this.formData).then((res)=>{
                                 this.dialogFormVisible4Edit=false
                                 if (res.data.flag){
                                     this.$message({
                                         message:res.data.message,
                                         type:'success'
                                     })
+                                }else {
+                                    alert(this.formData.id)
                                 }
                                 this.findPage()
 
